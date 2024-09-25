@@ -59,4 +59,11 @@ public void recorrer() {
         indice++; // Incrementa el índice
     }
 }
+
+//Mover el elemento ingresado al principio de la lista
+public void mover (Object data){
+    Nodo nuevonodo = new Nodo (data);
+    nuevonodo.next=head;
+    head = nuevonodo;
+}
 }

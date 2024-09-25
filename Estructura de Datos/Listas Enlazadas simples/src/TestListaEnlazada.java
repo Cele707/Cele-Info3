@@ -16,6 +16,10 @@ public class TestListaEnlazada {
         int valorABorrar = 5; // Cambia esto por el valor que desees borrar
         lista.borrarNodo(valorABorrar);
         
+        //agregarmos un nodo al inicio
+        int x= 19;
+        lista.mover(x);
+        
         // Recorrer la lista y mostrar los datos después de borrar
         System.out.println("\nElementos en la lista después de borrar:");
         lista.recorrer();
