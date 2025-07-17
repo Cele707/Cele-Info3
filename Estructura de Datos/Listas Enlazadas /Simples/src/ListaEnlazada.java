@@ -1,4 +1,4 @@
-public class ListaEnlazada {
+public class ListaEnlazada{
 //atributos
 private Nodo head;
 private Nodo current;
