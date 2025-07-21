@@ -1,6 +1,8 @@
 package AVL;
 class ArbolAVL {
+
     Nodo raiz;
+
     // Inserta un valor en el árbol y mantiene el balance
     public Nodo insertar(Nodo nodo, int valor) {
 
@@ -19,40 +21,34 @@ class ArbolAVL {
         nodo.altura = 1 + Math.max(altura(nodo.izquierdo), altura(nodo.derecho));
 
         // Paso 3: Calcular el balance del nodo
-        int balance = altura(nodo.derecho) - altura(nodo.izquierdo);
+        int balance = altura(nodo.izquierdo) - altura(nodo.derecho);
 
-        //El subárbol izquierdo está demasiado alto (-)
-        if (balance < -1) {
-            if (nodo.izquierdo != null) {
-            // Caso Left-Left: su hijo tiene el mismo signo (-)
-                if (valor < nodo.izquierdo.valor) {
-                return rotarDerecha(nodo); // Realizamos una rotación derecha simple para balancear
-        }
-            // Caso Left-Right: su hijo tiene distinto signo (+)
-                else if (valor > nodo.izquierdo.valor) {
-                nodo.izquierdo = rotarIzquierda(nodo.izquierdo);  // Primero rotamos a la izquierda el subárbol izquierdo
-                return rotarDerecha(nodo);   // Luego rotamos a la derecha el nodo actual para balancear
-                }
-            }
+     // Rotaciones
+        //subarbol izquierdo más alto (+)
+        if (balance > 1 && valor < nodo.izquierdo.valor)
+            return rotarDerecha(nodo); // Left Left
+
+         if (balance > 1 && valor > nodo.izquierdo.valor) {
+            nodo.izquierdo = rotarIzquierda(nodo.izquierdo);
+            return rotarDerecha(nodo); // Left Right
         }
 
-        // subárbol derecho está demasiado alto (+)
-        if (balance > 1) {
-            if (nodo.derecho != null) {
-            // Caso Right-Right: su hijo tiene el mismo signo (+)
-                if (valor > nodo.derecho.valor) { 
-                return rotarIzquierda(nodo);  
-            }
-            // Caso Right-Left: su hijo tiene distinto signo (-)
-                else if (valor < nodo.derecho.valor) {
-                nodo.derecho = rotarDerecha(nodo.derecho); // Primero rotamos a la derecha el subárbol derecho
-                return rotarIzquierda(nodo);  // Luego rotamos a la izquierda el nodo actual para balancear
-                }
-            }
-        }
+        //subarbol derecho más alto (-)
+        if (balance < -1 && valor > nodo.derecho.valor)
+            return rotarIzquierda(nodo); // Right Right
 
+
+        if (balance < -1 && valor < nodo.derecho.valor) {
+            nodo.derecho = rotarDerecha(nodo.derecho);
+            return rotarIzquierda(nodo); // Right Left
+        }
 
         return nodo; // Sin rotación necesaria
+    }
+    
+    //obtener balance del nodo
+     int getBalance(Nodo n) {
+        return (n == null) ? 0 : altura(n.izquierdo) - altura(n.derecho);
     }
 
     // Rotación Derecha Simple
@@ -106,4 +102,5 @@ class ArbolAVL {
         }
     }
 }
+
 
